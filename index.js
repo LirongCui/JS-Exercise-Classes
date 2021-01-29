@@ -76,8 +76,31 @@ class Airplane {
   */
   
  class Car {
-    
+   constructor(model, milesPerGallon){
+     this.model = model;
+     this.milesPerGallon = milesPerGallon;
+     this.tank = 0;
+     this. odometer = 0;
+   }
+
+   fill(gallons){
+     this.tank = this.tank + gallons;
+   }
+
+   drive(distance){
+     let gasNeed = distance/this.milesPerGallon;
+     if (this.tank > gasNeed){
+       this.odometer += distance;
+       this.tank -= gasNeed;
+     }
+     else{
+       this.odometer = this.tank*this.milesPerGallon+this.odometer;
+       this.tank = 0;
+       return `I ran out of fuel at ${this.odometer} miles!`
+     }
+   }
   }
+
   
   /*
     TASK 3
@@ -92,7 +115,14 @@ class Airplane {
           + {name} and {location} of course come from the instance's own properties.
   */
  class Lambdasian {
-    
+   constructor(attributes){
+     this.name = attributes.name;
+     this.age = attributes.age;
+     this.location = attributes.location;
+   }
+   speak(){
+     return `Hello my name is ${this.name}, I am from ${this.location}`;
+   }
   }
   
   /*
@@ -109,9 +139,22 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
-
+ class Instructor extends Lambdasian{
+   constructor(attributes){
+    super(attributes);
+    this.specialty = attributes.specialty;
+    this.favLanguage = attributes.favLanguage;
+    this.catchPhrase = attributes.catchPhrase;
+   }
+   demo(subject){
+    return `Today we are learning about ${subject}`
+   }
+   grade(student, subject){
+     return `${student.name} receives a perfect score on ${subject}`
+   }
  }
+
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -127,8 +170,22 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
+ class Student extends Lambdasian{
+     constructor(attributes){
+       super(attributes);
+       this.previousBackground = attributes.previousBackground;
+       this.className = attributes.className;
+       this.favSubjects = attributes.favSubjects;
+     }
+     listSubjects(){
+       return `${this.favSubjects}`
+     }
+     PRAssignment(subject){
+      return `${this.name} has submitted a PR for ${subject}`
+     }
+     sprintChallenge(subject){
+       return `${this.name} has begun sprint challenge on ${subject}`
+     }
  }
   
   /*
